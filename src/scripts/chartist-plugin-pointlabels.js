@@ -12,6 +12,7 @@
       x: 0,
       y: -10
     },
+    dataAttribute: 'value',
     textAnchor: 'middle',
     align: 'center',
     labelInterpolationFnc: Chartist.noop
@@ -53,6 +54,8 @@
 
     function addLabel(position, data) {
       // if x and y exist concat them otherwise output only the existing value
+      var dataAttribute = options.dataAttribute
+      var attr = data[dataAttribute]
       var value = data.value.x !== undefined && data.value.y ?
         (data.value.x + ', ' + data.value.y) :
         data.value.y || data.value.x;
@@ -61,7 +64,7 @@
         x: position.x + options.labelOffset.x,
         y: position.y + options.labelOffset.y,
         style: 'text-anchor: ' + options.textAnchor
-      }, options.labelClass).text(options.labelInterpolationFnc(value));
+      }, options.labelClass).text(options.labelInterpolationFnc(attr));
     }
 
     return function ctPointLabels(chart) {
